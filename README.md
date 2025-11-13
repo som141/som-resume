@@ -27,6 +27,7 @@
 
 ### 2.3. Java Programer
 주 언어는 자바이며 이것으로 대부분의 개발 및 PS를 하고 있습니다.
+자바의 실용적인 활용 방안(ramda,stream,design pattern,관례,network,thread issue) + 관련된 프레임워크를 학습하고 있습니다(Spring,hibernate,Jda..)
 
 ## 3. My Projects
 ### 3.1. University Projects
@@ -39,14 +40,16 @@
 | **[JenkinsTest](https://github.com/som141/JenkinsTest)**  | Python, Jenkins|학교 솔리드 클라우드를 사용해서 웹후크를 걸어서 젠킨스 cd/ci 체험|
 
 
-3.2. Personal Projects
+### 3.2. Personal Projects
 | Project                                                      | Technologies          | Focus                                                     |
 | ------------------------------------------------------------ | --------------------- | --------------------------------------------------------- |
 | **[Discord Music Bot (dis)](https://github.com/som141/dis)** | Java, JDA, LavaPlayer | LavaPlayer과 JDA이용해서 자바 디스코드 봇 개발 및 GCP에 올려서 사용 |
 |**[MoonJuBlog](https://github.com/som141/MoonJuBlog)** |Java+Spring,Hibernate,MySql |자바+스프링,mysql를 이용해서 벡엔드 api형식의 벡엔드 구성 + 웹 프론트는 v0라는 ai-tool을 이용해서 제작|
 
 ---
-
+### 3.3. current Project
+현재는 discord봇에 다른 게임서버의 상태 정보나 외부api를 활용할수 있게 붙일 계획이다.그리고 노드를 쪼개서 다시 설계해보려고 한다.
+그렇게 하기 위해 지금은 grpc, k3s, airflow 를 학습하고 있다. 
 
 
 
