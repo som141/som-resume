@@ -36,9 +36,21 @@
 | **[weather](https://github.com/som141/weather_)**| Kotlin | 코틀린을 사용해 날씨 예측을 해주는 안드로이드앱 + 위젯을 개발|
 | **[design_pattern_7](https://github.com/som141/design_pattern_7) / [design_p1](https://github.com/som141/design_p1)** | Java(POJO임)| 디자인 패턴을 이용한 사무실 대여서비스 개발|
 | **[DjangoTest](https://github.com/som141/DjangoTest) / [Django_home_work](https://github.com/som141/Django_home_work)**   | Python, Django       | 오픈소스 프로젝트 장고 수업 숙제|
-| **[JenkinsTest](https://github.com/som141/JenkinsTest)**  | Python, Jenkins|학교 솔리드 클라우드를 사용해서 웹후크를 걸어서 젠킨스 cd/ci 체험해보기|
+| **[JenkinsTest](https://github.com/som141/JenkinsTest)**  | Python, Jenkins|학교 솔리드 클라우드를 사용해서 웹후크를 걸어서 젠킨스 cd/ci 체험|
 
 
 3.2. Personal Projects
+| Project                                                      | Technologies          | Focus                                                     |
+| ------------------------------------------------------------ | --------------------- | --------------------------------------------------------- |
+| **[Discord Music Bot (dis)](https://github.com/som141/dis)** | Java, JDA, LavaPlayer | LavaPlayer과 JDA이용해서 자바 디스코드 봇 개발 및 GCP에 올려서 사용 |
+|**[MoonJuBlog](https://github.com/som141/MoonJuBlog)** |Java+Spring,Hibernate,MySql |자바+스프링,mysql를 이용해서 벡엔드 api형식의 벡엔드 구성 + 웹 프론트는 v0라는 ai-tool을 이용해서 제작|
+
+---
+
+
+
+
+
+
 
 
