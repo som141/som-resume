@@ -38,18 +38,20 @@
 | **[design_pattern_7](https://github.com/som141/design_pattern_7) / [design_p1](https://github.com/som141/design_p1)** | Java(POJO임)| 디자인 패턴을 이용한 사무실 대여서비스 개발|
 | **[DjangoTest](https://github.com/som141/DjangoTest) / [Django_home_work](https://github.com/som141/Django_home_work)**   | Python, Django       | 오픈소스 프로젝트 장고 수업 숙제|
 | **[JenkinsTest](https://github.com/som141/JenkinsTest)**  | Python, Jenkins|학교 솔리드 클라우드를 사용해서 웹후크를 걸어서 젠킨스 cd/ci 체험|
-
+| **[HA cluster test](https://github.com/som141/JenkinsTest)**  | mysql,mongodb..|mysql master-slave,mongo db replica set failover test및 복구|
+| **[ERP System](https://github.com/som141/advancedProgramin)**  | springboot,mysql,mongodb,grpc,java-soket|서비스를 4개로 쪼갠 erp 시스템 만들기|
 
 ### 3.2. Personal Projects
 | Project                                                      | Technologies          | Focus                                                     |
 | ------------------------------------------------------------ | --------------------- | --------------------------------------------------------- |
 | **[Discord Music Bot (dis)](https://github.com/som141/dis)** | Java, JDA, LavaPlayer | LavaPlayer과 JDA이용해서 자바 디스코드 봇 개발 및 GCP에 올려서 사용 |
 |**[MoonJuBlog](https://github.com/som141/MoonJuBlog)** |Java+Spring,Hibernate,MySql |자바+스프링,mysql를 이용해서 벡엔드 api형식의 벡엔드 구성 + 웹 프론트는 v0라는 ai-tool을 이용해서 제작|
-
+| **[Discord Music Bot (dis)](https://github.com/som141/dis)** | Java, JDA, LavaPlayer | LavaPlayer과 JDA이용해서 자바 디스코드 봇 개발 및 GCP에 올려서 사용 |
+| **[trash-calc](https://github.com/som141/rpc-calc)** | SpringBoot,ngrok,docker-compose,grpc | 수업시간에 심심해서 만들어본 docker-compose복습겸 쓸데없는 계산기 |
 ---
 ### 3.3. current Project
 현재는 discord봇에 다른 게임서버의 상태 정보나 외부api를 활용할수 있게 붙일 계획이다.그리고 노드를 쪼개서 다시 설계해보려고 한다.
-그렇게 하기 위해 지금은 grpc, k3s, airflow 를 학습하고 있다. 
+그렇게 하기 위해 지금은 grpc,docker swarm,kubeadm을 학습하고 있다. 
 
 
 
