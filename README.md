@@ -46,7 +46,6 @@
 | ------------------------------------------------------------ | --------------------- | --------------------------------------------------------- |
 | **[Discord Music Bot (dis)](https://github.com/som141/dis)** | Java, JDA, LavaPlayer | LavaPlayer과 JDA이용해서 자바 디스코드 봇 개발 및 GCP에 올려서 사용 |
 |**[MoonJuBlog](https://github.com/som141/MoonJuBlog)** |Java+Spring,Hibernate,MySql |자바+스프링,mysql를 이용해서 벡엔드 api형식의 벡엔드 구성 + 웹 프론트는 v0라는 ai-tool을 이용해서 제작|
-| **[Discord Music Bot (dis)](https://github.com/som141/dis)** | Java, JDA, LavaPlayer | LavaPlayer과 JDA이용해서 자바 디스코드 봇 개발 및 GCP에 올려서 사용 |
 | **[trash-calc](https://github.com/som141/rpc-calc)** | SpringBoot,ngrok,docker-compose,grpc | 수업시간에 심심해서 만들어본 docker-compose복습겸 쓸데없는 계산기 |
 ---
 ### 3.3. current Project
