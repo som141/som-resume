@@ -1,12 +1,12 @@
 # som-resume
-> 오픈소스개발 중간고사에 쓰이는 이력서 레포지토리
+> 이력서 repo
 ## 1. Outline
 ### 1.1. Profile
 ![git-profile](image.png)
 
 이름 : 윤영주(github-name : som141)
 - 생년월일 2001-06-19
-- 연락처:010-8949-9393
+- 연락처:010-8977-9897
 - Github: https://github.com/som141
 ### 1.2. Education
 단국대학교, 2023-03 ~ 현재
