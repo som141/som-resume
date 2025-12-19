@@ -5,7 +5,6 @@
 ![git-profile](image.png)
 
 이름 : 윤영주(github-name : som141)
-- 생년월일 2001-06-19
 - 연락처:010-8977-9897
 - Github: https://github.com/som141
 ### 1.2. Education
