@@ -13,8 +13,8 @@
 - 학점 : 3.5 / 4.5
 ### 1.3. Skills
 1. Languages: C, C++, **Java**(main), Python,Kotlin
-2. Frameworks & Libraries: Spring Boot, Django, Jpa/Hibernate, Pandas,JDA(Java-DiscordBot Develop Tool),Mysql
-3. Tools & Platforms: Git,Github,Linux/Wsl,Jenkins,docker-compose
+2. Frameworks & Libraries: Spring Boot,  Jpa/Hibernate, Pandas,JDA(Java-DiscordBot Develop Tool),Mysql
+3. Tools & Platforms: Git,Github,Linux/Wsl,docker-compose
 4. Concepts: OOP-design, Restful Api, Grpc ,MVC architecture,database design,problem solving([백준 링크](https://www.acmicpc.net/user/s030209))
 
 ## 2.Introduction
@@ -49,7 +49,6 @@
 ---
 ### 3.3. current Project
 현재는 discord봇에 다른 게임서버의 상태 정보나 외부api를 활용할수 있게 붙일 계획이다.그리고 노드를 쪼개서 다시 설계해보려고 한다.
-그렇게 하기 위해 지금은 grpc,docker swarm,kubeadm을 학습하고 있다. 
 
 
 
