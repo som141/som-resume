@@ -10,7 +10,7 @@
 ### 1.2. Education
 단국대학교, 2023-03 ~ 현재
 - 전공 : 소프트웨어
-- 학점 : 3.5 / 4.5
+
 ### 1.3. Skills
 1. Languages: C, C++, **Java**(main), Python,Kotlin
 2. Frameworks & Libraries: Spring Boot,  Jpa/Hibernate, Pandas,JDA(Java-DiscordBot Develop Tool),Mysql
@@ -47,8 +47,7 @@
 |**[MoonJuBlog](https://github.com/som141/MoonJuBlog)** |Java+Spring,Hibernate,MySql |자바+스프링,mysql를 이용해서 벡엔드 api형식의 벡엔드 구성 + 웹 프론트는 v0라는 ai-tool을 이용해서 제작|
 | **[trash-calc](https://github.com/som141/rpc-calc)** | SpringBoot,ngrok,docker-compose,grpc | 수업시간에 심심해서 만들어본 docker-compose복습겸 쓸데없는 계산기 |
 ---
-### 3.3. current Project
-현재는 discord봇에 다른 게임서버의 상태 정보나 외부api를 활용할수 있게 붙일 계획이다.그리고 노드를 쪼개서 다시 설계해보려고 한다.
+
 
 
 
