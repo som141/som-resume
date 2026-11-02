@@ -21,13 +21,21 @@ body { counter-reset: page; }
 .page {
   width: 210mm;
   height: 297mm;
-  padding: 15mm 17mm 14mm;
+  padding: 15mm 17mm 13mm;
   margin: 0 auto;
   background: #fff;
   position: relative;
   overflow: hidden;
   break-after: page;
   page-break-after: always;
+}
+
+.page:not(.cover)::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 1.6mm;
+  background: linear-gradient(90deg, #214f91 0%, #3c74b7 68%, #77a9aa 100%);
 }
 
 .page:last-child {
@@ -43,7 +51,7 @@ figcaption { display: none; }
 h1 {
   margin-bottom: 5mm;
   color: #14213d;
-  font-size: 24pt;
+  font-size: 23pt;
   line-height: 1.22;
   letter-spacing: -0.04em;
 }
@@ -149,6 +157,28 @@ pre {
   background: #f7f9fc;
 }
 
+.case-strip {
+  margin: 3mm 0 3.5mm;
+  padding: 2.6mm 3.5mm;
+  border-left: 1.1mm solid #2e64ad;
+  background: #eef4fb;
+  color: #26476d;
+  font-size: 8.8pt;
+}
+
+.case-strip p,
+.outcome p { margin: 0; }
+
+.outcome {
+  margin-top: 2.5mm;
+  padding: 2.7mm 3.6mm;
+  border: 0.25mm solid #a8c8bf;
+  border-radius: 2mm;
+  background: #eff8f4;
+  color: #214f48;
+  font-size: 9.1pt;
+}
+
 .panel h2:first-child { margin-top: 0; }
 
 .fact-row {
@@ -197,10 +227,19 @@ pre {
 .cover-photo {
   width: 31mm;
   height: 31mm;
-  margin: 5mm 0 28mm;
+  margin: 5mm 0 17mm;
   border: 0.8mm solid rgba(255,255,255,0.75);
   border-radius: 50%;
   object-fit: cover;
+}
+
+.cover-thesis {
+  width: 125mm;
+  margin-top: 12mm;
+  color: #e4f1f6;
+  font-size: 13pt;
+  line-height: 1.65;
+  letter-spacing: -0.02em;
 }
 
 .cover h1 {
@@ -223,7 +262,7 @@ pre {
 }
 
 .cover-projects {
-  margin-top: 28mm;
+  margin-top: 17mm;
   padding-top: 7mm;
   border-top: 0.25mm solid rgba(255,255,255,0.35);
   font-size: 12pt;
