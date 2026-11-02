@@ -1,6 +1,6 @@
 # 윤영주
 
-Java 백엔드 개발자를 지향하는 소프트웨어 전공 학생입니다. 직접 사용하는 Discord 봇을 만들고, 지인들과 사용하며 발견한 문제를 개선하고 있습니다. 팀 프로젝트에서는 사용자별 데이터 관리와 작업 처리, 외부 서비스 연동을 맡았습니다.
+단국대학교 소프트웨어학과에 재학 중이며 Java와 Spring으로 백엔드를 개발하고 있습니다. 직접 만든 Discord 봇을 지인들과 사용하면서 운영 중 생긴 문제를 고쳐 왔습니다.
 
 ![프로필](image.png)
 
@@ -8,7 +8,7 @@ Java 백엔드 개발자를 지향하는 소프트웨어 전공 학생입니다.
 - GitHub: [som141](https://github.com/som141)
 - 학력: 단국대학교 소프트웨어 전공 · 2023.03 입학
 
-## Skills
+## 기술
 
 | 구분 | 사용 기술 |
 | --- | --- |
@@ -21,11 +21,11 @@ Java 백엔드 개발자를 지향하는 소프트웨어 전공 학생입니다.
 
 Java와 Spring을 주로 사용합니다. C/C++은 자료구조·알고리즘 실습, Python은 수업 실습, Kotlin은 Android 앱 개발에 사용했습니다.
 
-## Projects
+## 프로젝트
 
 ### DIS · Discord 음악·주식 모의투자 봇
 
-개인 프로젝트 · 개발 및 운영 · 개발 기록 2025.06~\
+개인 프로젝트 · 2025.06~ · 개발 및 운영\
 [저장소](https://github.com/som141/dis)
 
 2024년 사용하던 Discord 봇들이 동작하지 않던 경험을 계기로 직접 쓸 음악 봇을 만들었습니다. 음악 검색·재생에 주식 모의투자 기능을 더했고, 현재 지인 약 30명과 사용하고 있습니다.
@@ -38,8 +38,8 @@ Java와 Spring을 주로 사용합니다. C/C++은 자료구조·알고리즘 �
 
 ### LawGround · 법령 근거 기반 기출문제 분석
 
-팀 프로젝트 · Spring 백엔드·DB 및 AI 서비스 연동 · 기여 기록 2026.10~\
-[저장소](https://github.com/lawground-team/LawGround) · [개인 구현 보고서](https://github.com/lawground-team/LawGround/blob/main/docs/reports/youngju-integrated-week-08.md)
+팀 프로젝트 · 2026.10~ · Spring 백엔드·DB 및 AI 서비스 연동\
+[저장소](https://github.com/lawground-team/LawGround) · [구현 내용](https://github.com/lawground-team/LawGround/blob/main/docs/reports/youngju-integrated-week-08.md)
 
 공인중개사 기출문제의 정답 근거를 법령에서 확인하고 관련 문제를 추천하는 서비스입니다.
 
@@ -51,7 +51,7 @@ Java와 Spring을 주로 사용합니다. C/C++은 자료구조·알고리즘 �
 
 ### 버블리(Verbly) · 영어 일기 첨삭·복습 서비스
 
-팀 프로젝트 · 개인 라이브러리·복습 퀴즈 백엔드 · 기여 기록 2026.01–2026.02\
+팀 프로젝트 · 2026.01–2026.02 · 개인 라이브러리·복습 퀴즈 백엔드\
 [백엔드 저장소](https://github.com/Verbly-Official/BE)
 
 AI와 원어민의 영어 일기 첨삭 결과를 개인 라이브러리와 퀴즈로 복습하는 서비스입니다.
@@ -62,9 +62,9 @@ AI와 원어민의 영어 일기 첨삭 결과를 개인 라이브러리와 퀴�
 
 사용 기술: Java · Spring Boot · Spring Data JPA · MySQL
 
-## Personal Study
+## 개인 학습
 
-실제 코드·문서와 커밋 기록을 기준으로 정리한 학습 이력입니다. 기본 생성 코드나 짧은 환경 확인 예제는 제외했습니다. [연도별 상세 기록](PERSONAL_STUDY.md)
+[연도별 학습 기록](PERSONAL_STUDY.md)
 
 ### 2024
 
@@ -83,13 +83,9 @@ AI와 원어민의 영어 일기 첨삭 결과를 개인 라이브러리와 퀴�
 - **메시지 처리:** JSON 메시지 발행·소비, 작업 큐와 실패 메시지 보관 큐를 구성하는 Spring AMQP 예제를 작성했습니다. [RabbitMQ 실습](https://github.com/som141/rabbitmq-hello)
 - **JPA·PostgreSQL 실습 환경:** 도서·주문 도메인과 시드 데이터, Hibernate 통계 수집 및 실행 계획 조회 API가 있는 학습 환경을 구성했습니다.
 
-일부 학습 저장소는 비공개입니다. 상세 기록에 접근 상태를 표시했고, [공개 전환 대상과 설정 안내](docs/REPOSITORY_VISIBILITY.md)를 별도로 정리했습니다.
-
-## University Projects
+## 수업 프로젝트
 
 | 프로젝트 | 구현 내용 | 사용 기술 |
 | --- | --- | --- |
 | [날씨 앱·위젯](https://github.com/som141/weather_) | 외부 날씨·미세먼지 API를 연결한 Android 앱과 홈 화면 위젯 | Kotlin · Android |
 | [전자결재 시스템](https://github.com/som141/advancedProgramingAs) | 직원 관리·결재 요청·처리·알림을 네 앱으로 나눈 수업 프로젝트 | Java · Spring Boot · MySQL · MongoDB · gRPC |
-
-[작성 근거와 확인 범위](docs/RESUME_SOURCES.md)
