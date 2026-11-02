@@ -62,7 +62,7 @@ github.com/som141　·　010-8977-9897　·　단국대학교 소프트웨어학
 | 13 | 음악 재생 파이프라인 | 검색부터 음성 패킷 전송까지 어떤 단계가 있는가 |
 | 14 | 늦게 발생한 재생 실패 | 접수 성공 뒤의 403·디코더 실패를 어떻게 전달하는가 |
 | 15 | 주식 기능과 도메인 | 계좌, 시즌, 레버리지 정책은 무엇인가 |
-| 16 | 거래 구현 | 가격 신선도, 잔고, 포지션, 원장을 어떻게 함께 바꾸는가 |
+| 16 | 거래 구현 | 가격 신선도, 잔고, 보유 종목, 거래 내역을 어떻게 함께 바꾸는가 |
 | 17 | 배포·관측·테스트 | 무엇을 자동으로 확인하고 무엇을 직접 확인하는가 |
 | 18 | 설계 판단과 제한 | 분리로 얻은 점과 현재 확장 한계는 무엇인가 |
 
@@ -129,7 +129,7 @@ DIS는 Discord와 YouTube라는 외부 서비스 위에서 동작한다. 컨테�
 - Discord interaction은 정해진 시간 안에 응답을 시작해야 한다.
 - 음악 검색 성공과 실제 음원 재생 성공은 같은 시점이 아니다.
 - 길드마다 player와 queue가 다르며 한 길드의 명령이 다른 길드 상태를 바꾸면 안 된다.
-- 계좌와 포지션, 거래 원장은 한 거래 안에서 같이 바뀌어야 한다.
+- 계좌 잔고와 보유 종목, 거래 내역은 한 거래 안에서 같이 바뀌어야 한다.
 - Redis의 임시 상태가 사라져도 PostgreSQL의 거래 기록은 남아야 한다.
 - worker를 나눠도 결과는 명령을 실행한 사용자의 원래 Discord 응답으로 돌아가야 한다.
 
@@ -154,11 +154,11 @@ DIS는 Discord와 YouTube라는 외부 서비스 위에서 동작한다. 컨테�
 | `/sfx name` | 등록된 효과음 | 같은 음성 연결로 효과음 재생 | 요청자만 |
 | `/stock quote symbol` | 활성 watchlist 종목, 준비된 시세 | 현재가와 시각 조회 | 요청자만 |
 | `/stock list` | 없음 | 거래 가능 종목과 준비된 가격 목록 | 요청자만 |
-| `/stock buy` | 종목, 정수 수량, 1~50배 leverage | 증거금 차감, 포지션·원장 기록 | 채널 공개 |
-| `/stock sell` | 보유 종목, 정수 수량 | 실현 손익 반영, 포지션·원장 갱신 | 채널 공개 |
+| `/stock buy` | 종목, 정수 수량, 1~50배 leverage | 증거금 차감, 보유 종목·거래 내역 기록 | 채널 공개 |
+| `/stock sell` | 보유 종목, 정수 수량 | 실현 손익 반영, 보유 종목·거래 내역 갱신 | 채널 공개 |
 | `/stock balance` | 없음 | 이번 시즌 현금 잔고 | 요청자만 |
 | `/stock portfolio` | 없음 | 보유 수량·평단·평가 손익 | 요청자만 |
-| `/stock history` | 없음 | 거래 원장 조회 | 요청자만 |
+| `/stock history` | 없음 | 매수·매도 내역 조회 | 요청자만 |
 | `/stock rank period` | day/week/month | 길드 내 수익률 순위 | 채널 공개 |
 
 명령 공개 범위는 Gateway에서 결정한다. 음악과 개인 자산 조회는 ephemeral 응답을 사용하고, 거래와 순위는 서버 구성원이 함께 볼 수 있게 공개한다. `/man`과 `/pizza`는 Gateway가 직접 답하고, 음악·주식 명령은 worker 결과로 응답을 편집한다.
@@ -187,10 +187,10 @@ DIS는 Discord와 YouTube라는 외부 서비스 위에서 동작한다. 컨테�
 | ---: | --- | --- |
 | 1 | `/stock buy symbol:AAPL quantity:1 leverage:2` | Gateway가 공개 응답으로 defer하고 stock command 발행 |
 | 2 | 처리 중 | Stock Node가 watchlist와 45초 이내 시세를 확인 |
-| 3 | 체결 가격·증거금·잔고·보유 수량 표시 | 한 트랜잭션에서 계좌 차감, 포지션 갱신, 거래 원장 삽입 |
+| 3 | 체결 가격·증거금·잔고·보유 수량 표시 | 한 트랜잭션에서 잔고 차감, 보유 종목 갱신, 매수 내역 저장 |
 | 4 | 다른 사용자가 거래 결과 확인 | Gateway가 공개 interaction을 편집 |
 
-실패 응답도 같은 위치에 표시한다. 준비되지 않은 시세, 부족한 현금, 보유량 부족, 기존 포지션과 다른 leverage는 거래를 시작하기 전에 거절한다.
+실패 응답도 같은 위치에 표시한다. 준비되지 않은 시세, 부족한 현금, 보유량 부족, 기존 보유 종목과 다른 leverage는 거래를 시작하기 전에 거절한다.
 
 ---
 
@@ -204,10 +204,10 @@ DIS는 Discord와 YouTube라는 외부 서비스 위에서 동작한다. 컨테�
 | --- | --- | --- |
 | Gateway | Discord 명령 등록·입력 검사, 공개 범위, pending 응답, 최종 회신 | 음악 player, 주식 계좌 계산 |
 | Audio Node | 음악 명령 소비, 길드별 player·queue, 음성 연결, 재생 실패·복구 | Discord slash command UI, 주식 데이터 |
-| Stock Node | 시세 캐시, 계좌·포지션·원장, 시즌·랭킹·청산 | JDA 연결, 음악 상태 |
+| Stock Node | 시세 캐시, 계좌·보유 종목·거래 내역, 시즌·랭킹·청산 | JDA 연결, 음악 상태 |
 | RabbitMQ | command/result 라우팅 | 장기 업무 데이터 |
-| Redis | 짧게 유지되는 응답 위치, 음악 상태·잠금·dedup, 시세·랭킹 캐시 | 거래 원장의 최종 기록 |
-| PostgreSQL | 계좌·포지션·거래·지급 원장, snapshot, watchlist | Discord interaction token |
+| Redis | 짧게 유지되는 응답 위치, 음악 상태·잠금·dedup, 시세·랭킹 캐시 | 매수·매도 내역의 최종 기록 |
+| PostgreSQL | 계좌·보유 종목·매매 내역·지급 내역, snapshot, watchlist | Discord interaction token |
 
 Gateway와 Audio Node는 같은 봇 계정으로 JDA에 연결하지만 목적이 다르다. Gateway는 채팅 interaction을 받고, Audio Node는 길드 음성 연결과 오디오 전송을 맡는다. Stock Node는 Discord에 직접 연결하지 않는다.
 
@@ -289,14 +289,14 @@ pending TTL은 15분이다. 음악 재생은 검색 결과 뒤에도 실패할 �
 | Redis pending | interaction token, 명령·길드·채널, 만료 시각 | 15분. 결과가 원 응답을 찾는 용도 |
 | Redis music | 길드별 현재 재생 정보, 대기열, lock, command dedup | Audio Node 재시작 때 복구 시도. 실제 player 메모리와 맞춰야 함 |
 | Redis stock | quote, ranking, rate limit 상태 | quote 기본 TTL 60초. 거래는 45초 이내 시세만 허용 |
-| PostgreSQL stock | 계좌, 포지션, 거래·지급 원장, 자산 snapshot, watchlist | 재시작 뒤에도 유지되는 기준 데이터 |
+| PostgreSQL stock | 계좌, 보유 종목, 매매·지급 내역, 자산 snapshot, watchlist | 재시작 뒤에도 유지되는 기준 데이터 |
 
-Redis에 모든 것을 넣지 않은 이유는 값의 성격이 다르기 때문이다. interaction token과 시세는 시간이 지나면 의미가 없지만 거래 원장은 시즌이 끝난 뒤에도 조회와 정산 근거로 남아야 한다.
+Redis에 모든 것을 넣지 않은 이유는 값의 성격이 다르기 때문이다. interaction token과 시세는 시간이 지나면 의미가 없지만 매수·매도 내역은 시즌이 끝난 뒤에도 조회와 정산 근거로 남아야 한다.
 
 ## 동시 처리에서 확인한 항목
 
 - 길드별 음악 명령은 lock과 dedup 범위를 공유한다.
-- 같은 주식 거래 안에서 현금, 포지션, 원장을 하나의 DB transaction으로 바꾼다.
+- 같은 주식 거래 안에서 현금 잔고, 보유 종목, 매수·매도 내역을 하나의 DB transaction으로 바꾼다.
 - 거래가 끝나면 해당 길드·시즌 ranking cache를 비워 다음 조회가 새 자산을 반영하게 한다.
 - watchlist에 없는 종목은 시세가 있더라도 거래하지 않는다.
 - 음악과 주식 메시징 정책은 같지 않다. 음악에는 dedup·DLQ 재처리 경로가 있으나, 주식 명령에 같은 보장을 과장해 적용하지 않는다.
@@ -420,7 +420,7 @@ private void reportPlaybackFailure(
 | 시작 자금 | 시즌 첫 진입 시 10,000 지급 |
 | 종목 | DB의 활성 watchlist. 초기 seed는 2026-05-01 기준 10종목 |
 | 수량 | 정수 주식만 허용 |
-| 레버리지 | 매수 시 1~50배, 같은 포지션에는 같은 배율 유지 |
+| 레버리지 | 매수 시 1~50배, 같은 종목을 추가 매수할 때 기존 배율 유지 |
 | 시세 | Redis TTL 60초, 거래는 45초 이내 quote만 허용 |
 | 갱신 | Finnhub mode에서 실행 종료 후 기본 20초 대기 |
 | 청산 | 갱신 성공 종목의 고립 증거금 평가 후 자산이 0 이하이면 처리 |
@@ -433,7 +433,7 @@ private void reportPlaybackFailure(
 
 **DIS · TRADE IMPLEMENTATION**
 
-# 한 거래에서 현금·포지션·원장을 같이 바꾼다
+# 한 거래에서 잔고·보유 종목·거래 내역을 같이 반영한다
 
 `TradeExecutionService.buy`와 `sell`은 `@Transactional` 경계 안에서 검증과 저장을 수행한다. 매수 순서는 다음과 같다.
 
@@ -456,9 +456,11 @@ ledgerRepository.save(TradeLedgerEntity.create(...));
 rankingCache.evictGuild(guildId, account.getSeasonKey());
 ```
 
+코드의 `TradeLedgerEntity`는 매수·매도 한 건의 종목, 수량, 가격, 증거금과 발생 시각을 저장한다. 본문에서는 이를 `거래 내역`으로 표기했다.
+
 ## 매도 계산
 
-부분 매도는 `매도 수량 / 전체 수량` 비율로 기존 증거금과 명목 금액을 해제한다. 실현 손익은 `수량 × (현재가 - 평균 단가)`로 계산하고, 해제 증거금과 합쳐 현금에 반영한다. 포지션 수량이 0이면 row를 삭제하고 거래 원장은 남긴다.
+부분 매도는 `매도 수량 / 전체 수량` 비율로 기존 증거금과 명목 금액을 해제한다. 실현 손익은 `수량 × (현재가 - 평균 단가)`로 계산하고, 해제 증거금과 합쳐 현금 잔고에 반영한다. 보유 수량이 0이면 보유 종목 row를 삭제하고 매도 내역은 남긴다.
 
 ## 거래 전에 거절하는 조건
 
@@ -469,7 +471,7 @@ rankingCache.evictGuild(guildId, account.getSeasonKey());
 | 비활성 종목 | watchlist 정책 위반 |
 | 45초보다 오래된 quote | 체결 가격으로 쓰기 어려움 |
 | 부족한 현금·보유 수량 | 계좌 불변식 위반 |
-| 기존 포지션과 다른 leverage | 한 포지션의 계산 기준이 섞임 |
+| 기존 보유 종목과 다른 leverage | 같은 종목의 증거금 계산 기준이 섞임 |
 
 거래 후 ranking cache를 비우는 작업도 같은 서비스에서 수행한다. 캐시 삭제 실패까지 DB 거래를 되돌릴지 여부는 저장소 경계와 장애 정책을 더 분리할 때 다시 검토할 항목이다.
 
@@ -517,7 +519,7 @@ YouTube source 1.18.2는 Maven 공급 문제를 겪은 뒤 공식 GitHub release
 | --- | --- | --- |
 | Gateway와 worker 분리 | Discord UI 변경과 음악·주식 처리를 독립적으로 배포·관찰 | command/result 계약과 pending 저장이 필요 |
 | Redis에 응답·음악 상태 | 프로세스 재시작과 여러 앱 사이에서 짧은 상태 공유 | TTL 만료, Redis 장애 때 늦은 결과를 회신할 수 없음 |
-| 거래는 PostgreSQL | 현금·포지션·원장의 transaction 보장 | DB가 Stock Node의 핵심 의존점이 됨 |
+| 거래는 PostgreSQL | 잔고·보유 종목·거래 내역의 transaction 보장 | DB가 Stock Node의 핵심 의존점이 됨 |
 | 시세 선갱신 후 캐시 조회 | Discord 명령 중 외부 API 지연·rate limit 분리 | 갱신 실패 시 거래를 중단해야 함 |
 | 접수와 재생 실패 분리 | 검색 뒤 발생하는 media 오류를 사용자에게 알림 | pending을 더 오래 보관하고 후속 결과 우선순위 관리 |
 | DAVE session을 JDA 조립부에 적용 | 음성 보안 구현을 player 업무 코드와 분리 | 운영체제별 네이티브 파일 관리 필요 |
