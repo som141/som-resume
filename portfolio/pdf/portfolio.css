@@ -150,10 +150,10 @@ p code, li code, td code {
 pre {
   margin: 2.4mm 0 1.7mm;
   padding: 3mm 3.4mm;
-  border: 0;
+  border: 0.22mm solid #d7d1c8;
   border-left: 1mm solid var(--accent);
-  background: var(--code);
-  color: #f2f2ef;
+  background: #f4f1eb;
+  color: #2c3138;
   font-size: 7.35pt;
   line-height: 1.42;
   white-space: pre-wrap;
@@ -166,6 +166,24 @@ pre code {
   background: transparent;
   color: inherit;
 }
+
+code.sourceCode > span > a:first-child {
+  color: #a3a19d;
+  text-decoration: none;
+}
+
+code.sourceCode span.kw,
+code.sourceCode span.cf,
+code.sourceCode span.at { color: #963f57; font-weight: 650; }
+code.sourceCode span.fu { color: #23688c; }
+code.sourceCode span.dt,
+code.sourceCode span.bu { color: #80551f; }
+code.sourceCode span.st,
+code.sourceCode span.sc { color: #367057; }
+code.sourceCode span.dv,
+code.sourceCode span.fl { color: #76538d; }
+code.sourceCode span.co { color: #777b7f; font-style: italic; }
+code.sourceCode span.op { color: #5d6268; }
 
 figure { margin: 0; }
 figcaption { display: none; }

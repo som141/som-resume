@@ -8,4 +8,6 @@ for source in "${SCRIPT_DIR}"/*.dot; do
   dot -Tsvg "${source}" -o "${output}"
 done
 
+python3 "${SCRIPT_DIR}/build_system_diagrams.py"
+
 echo "Rendered $(find "${SCRIPT_DIR}" -maxdepth 1 -name '*.svg' | wc -l) diagrams."
