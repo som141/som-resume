@@ -1,0 +1,15 @@
+digraph G {
+  graph [rankdir=LR, bgcolor="transparent", pad=0.2, nodesep=0.3, ranksep=0.55];
+  node [shape=box, style="rounded,filled", fontname="Noto Sans CJK KR", fontsize=9.3, color="#c7d5e7", fillcolor="#f7f9fc", fontcolor="#172033", margin="0.11,0.08"];
+  edge [color="#3b6bb1", penwidth=1.5, arrowsize=0.6];
+  p [label="문제 · 기준일"];
+  k [label="단어 검색"];
+  v [label="pgvector\n의미 검색"];
+  r [label="RRF\n순위 결합"];
+  a [label="Python AI\n리랭크 · 검증"];
+  s [label="Spring\n버전 · 시행일 · 인용 검사"];
+  db [label="PostgreSQL\n판정 · 설명 · 근거", shape=cylinder, fillcolor="#e8f4ef", color="#7cb59d"];
+  p -> k -> r;
+  p -> v -> r;
+  r -> a -> s -> db;
+}

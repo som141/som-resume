@@ -1,0 +1,12 @@
+digraph G {
+  graph [rankdir=LR, bgcolor="transparent", pad=0.2, nodesep=0.34];
+  node [shape=box, style="rounded,filled", fontname="Noto Sans CJK KR", fontsize=10, color="#c7d5e7", fillcolor="#f7f9fc", fontcolor="#172033", margin="0.12,0.08"];
+  edge [color="#3b6bb1", penwidth=1.5, arrowsize=0.6];
+  a [label="영어 일기"];
+  b [label="AI · 원어민\n첨삭"];
+  c [label="배울 표현\n선택"];
+  d [label="개인 라이브러리\n표현 · 뜻 · 예문 · 출처"];
+  e [label="복습 퀴즈"];
+  f [label="오답\n재도전", fillcolor="#e8f4ef", color="#7cb59d"];
+  a -> b -> c -> d -> e -> f;
+}

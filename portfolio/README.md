@@ -1,29 +1,7 @@
 # 프로젝트 포트폴리오
 
-이력서에 소개한 프로젝트에서 제가 맡은 일과 개발 중 겪은 일을 자세히 적었습니다.
+DIS, LawGround, Verbly에서 맡은 일과 개발 중 겪은 문제를 한 문서에 정리했습니다. PDF는 A4 13쪽이며 목차, 구조도, 처리 흐름과 구현 내용을 문서 안에서 모두 확인할 수 있습니다.
 
-## [DIS · Discord 음악·주식 모의투자 봇](DIS.md)
-
-2024년에 사용하던 Discord 음악 봇들이 제대로 동작하지 않았던 경험을 계기로 만들었습니다. 처음에는 음악 재생 기능만 있었지만, 운영 중 겪은 음성 연결 문제를 고치고 앱을 역할별로 나눈 뒤 주식 모의투자 기능까지 추가했습니다. 현재 지인 약 30명과 사용하고 있습니다.
-
-- 개인 프로젝트 · 2025.06~
-- 담당: 설계, 개발, 배포, 운영
-- Java · Spring Boot · JDA · LavaPlayer · RabbitMQ · Redis · PostgreSQL · Docker Compose
-
-## [LawGround · 법령 근거 기반 기출문제 분석](LAWGROUND.md)
-
-공인중개사 문제와 정답을 입력하면 기준일에 맞는 법령을 찾아 근거를 보여주고 관련 문제를 추천하는 팀 프로젝트입니다. 사용자 로그인과 개인 문제 보관함부터 분석 작업 처리, 법령 검색, AI 서비스 연결과 결과 저장까지 Spring 백엔드를 맡았습니다.
-
-- 팀 프로젝트 · 2026.10~
-- 담당: Spring 백엔드, DB, 사용자 화면 연결, AI 서비스 연동
-- Java · Spring Boot · PostgreSQL/pgvector · RabbitMQ · Docker
-
-## [버블리(Verbly) · 영어 일기 첨삭·복습 서비스](VERBLY.md)
-
-영어 일기의 첨삭 결과를 표현과 예문 단위로 보관하고 퀴즈로 다시 학습하는 서비스입니다. 개인 라이브러리와 복습 퀴즈 백엔드를 담당했고, 첨삭 결과가 라이브러리로 이어지는 흐름을 연결했습니다.
-
-- 팀 프로젝트 · 2026.01–2026.02
-- 담당: 개인 라이브러리, 복습 퀴즈 백엔드
-- Java · Spring Boot · Spring Data JPA · MySQL
-
-[이력서로 돌아가기](../README.md)
+- [Markdown으로 보기](PORTFOLIO.md)
+- [PDF로 보기](Yoon_Youngju_Backend_Portfolio.pdf)
+- [이력서로 돌아가기](../README.md)

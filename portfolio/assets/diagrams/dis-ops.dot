@@ -1,0 +1,15 @@
+digraph G {
+  graph [rankdir=LR, bgcolor="transparent", pad=0.2, nodesep=0.32, ranksep=0.55];
+  node [shape=box, style="rounded,filled", fontname="Noto Sans CJK KR", fontsize=9.5, color="#c7d5e7", fillcolor="#f7f9fc", fontcolor="#172033", margin="0.12,0.08"];
+  edge [color="#3b6bb1", penwidth=1.5, arrowsize=0.6];
+  m [label="main push"];
+  c [label="GitHub Actions\n테스트 · JAR · 이미지"];
+  d [label="Linux · Docker Compose\nGateway · Audio · Stock"];
+  p [label="Prometheus\n메트릭"];
+  g [label="Grafana\n대시보드 · 알림", fillcolor="#e8f4ef", color="#7cb59d"];
+  a [label="Alloy"];
+  l [label="Loki\n로그", fillcolor="#eaf1fa"];
+  m -> c -> d;
+  d -> p -> g;
+  d -> a -> l -> g;
+}

@@ -1,0 +1,11 @@
+digraph G {
+  graph [rankdir=LR, bgcolor="transparent", pad=0.2, nodesep=0.45, ranksep=0.6];
+  node [shape=box, style="rounded,filled", fontname="Noto Sans CJK KR", fontsize=11, color="#c7d5e7", fillcolor="#f4f7fb", fontcolor="#172033", margin="0.16,0.12"];
+  edge [color="#3b6bb1", penwidth=1.8, arrowsize=0.7];
+  a [label="2025.06\n음악 봇 시작"];
+  b [label="2026.03\nDAVE 음성 보안 대응"];
+  c [label="2026.03\nGateway · Audio Node 분리"];
+  d [label="2026.04–05\n주식 모의투자 추가"];
+  e [label="2026.06~\n모니터링 · 운영 보완"];
+  a -> b -> c -> d -> e;
+}

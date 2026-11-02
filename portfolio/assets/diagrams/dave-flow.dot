@@ -1,0 +1,14 @@
+digraph G {
+  graph [rankdir=LR, bgcolor="transparent", pad=0.2, nodesep=0.42];
+  node [shape=box, style="rounded,filled", fontname="Noto Sans CJK KR", fontsize=10.5, color="#c7d5e7", fillcolor="#f7f9fc", fontcolor="#172033", margin="0.15,0.1"];
+  edge [fontname="Noto Sans CJK KR", fontsize=8.5, color="#3b6bb1", fontcolor="#315987", penwidth=1.6, arrowsize=0.65];
+  u [label="사용자\n/join"];
+  b [label="DIS\n채널·권한 확인"];
+  j [label="JDA\nDAVE 세션 생성"];
+  d [label="Discord\n암호화 음성 연결"];
+  r [label="DIS\nCONNECTED 확인 후 응답", fillcolor="#e8f4ef", color="#7cb59d"];
+  u -> b [label=" 명령 "];
+  b -> j [label=" 연결 요청 "];
+  j -> d [label=" DAVE "];
+  d -> r [label=" 연결 상태 "];
+}

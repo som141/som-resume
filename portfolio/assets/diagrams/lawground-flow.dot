@@ -1,0 +1,13 @@
+digraph G {
+  graph [rankdir=LR, bgcolor="transparent", pad=0.2, nodesep=0.28];
+  node [shape=box, style="rounded,filled", fontname="Noto Sans CJK KR", fontsize=9.5, color="#c7d5e7", fillcolor="#f7f9fc", fontcolor="#172033", margin="0.11,0.08"];
+  edge [color="#3b6bb1", penwidth=1.5, arrowsize=0.58];
+  a [label="Google\n로그인"];
+  b [label="문제 · 선지 · 정답\n기준일 입력"];
+  c [label="개인 라이브러리\n저장"];
+  d [label="분석 요청"];
+  e [label="법령 검색\nAI 검증"];
+  f [label="선지별 설명\n인용 근거"];
+  g [label="관련 문제\n추천", fillcolor="#e8f4ef", color="#7cb59d"];
+  a -> b -> c -> d -> e -> f -> g;
+}

@@ -1,0 +1,26 @@
+digraph G {
+  graph [rankdir=LR, bgcolor="transparent", pad=0.25, nodesep=0.35, ranksep=0.55, compound=true];
+  node [shape=box, style="rounded,filled", fontname="Noto Sans CJK KR", fontsize=10, color="#c7d5e7", fillcolor="#ffffff", fontcolor="#172033", margin="0.14,0.09"];
+  edge [color="#3b6bb1", penwidth=1.5, arrowsize=0.65];
+  subgraph cluster_before {
+    label="이전 · 하나의 프로그램";
+    fontname="Noto Sans CJK KR"; fontsize=11; fontcolor="#24456f";
+    color="#d4dde8"; style="rounded,filled"; fillcolor="#f7f9fc";
+    d1 [label="Discord"];
+    l [label="Listener\n명령 · 음성 · 검색\n대기열 · 응답", fillcolor="#fff1ef", color="#e5a99f"];
+    d1 -> l;
+  }
+  subgraph cluster_after {
+    label="변경 후 · 역할별 실행";
+    fontname="Noto Sans CJK KR"; fontsize=11; fontcolor="#24456f";
+    color="#bfcfe2"; style="rounded,filled"; fillcolor="#eef4fa";
+    d2 [label="Discord"];
+    g [label="Gateway"];
+    q [label="RabbitMQ", shape=cylinder, fillcolor="#ffffff"];
+    a [label="Audio Node"];
+    r [label="Redis", shape=cylinder, fillcolor="#ffffff"];
+    d2 -> g -> q -> a;
+    g -> r [dir=both];
+    a -> r [dir=both];
+  }
+}

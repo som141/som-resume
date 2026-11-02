@@ -1,0 +1,13 @@
+digraph G {
+  graph [rankdir=LR, bgcolor="transparent", pad=0.2, nodesep=0.34];
+  node [shape=box, style="rounded,filled", fontname="Noto Sans CJK KR", fontsize=9.5, color="#c7d5e7", fillcolor="#f7f9fc", fontcolor="#172033", margin="0.12,0.08"];
+  edge [fontname="Noto Sans CJK KR", fontsize=8, color="#3b6bb1", fontcolor="#315987", penwidth=1.5, arrowsize=0.6];
+  u [label="사용자\n/play"];
+  g1 [label="Gateway\n응답 접수"];
+  r [label="Redis\ncommandId · 답변 위치", shape=cylinder, fillcolor="#ffffff"];
+  q [label="RabbitMQ\n명령", shape=cylinder, fillcolor="#ffffff"];
+  a [label="Audio Node\n검색 · 재생"];
+  q2 [label="RabbitMQ\n결과", shape=cylinder, fillcolor="#ffffff"];
+  g2 [label="Gateway\n원래 답변 수정", fillcolor="#e8f4ef", color="#7cb59d"];
+  u -> g1 -> r -> q -> a -> q2 -> g2 -> u;
+}

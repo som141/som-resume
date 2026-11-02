@@ -1,0 +1,18 @@
+digraph G {
+  graph [rankdir=LR, bgcolor="transparent", pad=0.2, nodesep=0.35, ranksep=0.6];
+  node [shape=box, style="rounded,filled", fontname="Noto Sans CJK KR", fontsize=10, color="#c7d5e7", fillcolor="#f7f9fc", fontcolor="#172033", margin="0.13,0.09"];
+  edge [fontname="Noto Sans CJK KR", fontsize=8, color="#3b6bb1", fontcolor="#315987", penwidth=1.5, arrowsize=0.6];
+  u [label="Discord\n/stock"];
+  g [label="Gateway"];
+  q [label="RabbitMQ", shape=cylinder, fillcolor="#ffffff"];
+  s [label="Stock Node\n조회 · 거래 · 순위"];
+  r [label="Redis\n최근 시세", shape=cylinder, fillcolor="#ffffff"];
+  p [label="PostgreSQL\n계좌 · 포지션 · 원장", shape=cylinder, fillcolor="#ffffff"];
+  f [label="Finnhub\n정기 시세", fillcolor="#eaf1fa"];
+  u -> g -> q -> s;
+  s -> q [label=" 결과 "];
+  q -> g [label=" 응답 "];
+  s -> r [dir=both];
+  s -> p [dir=both];
+  f -> r;
+}
