@@ -6,6 +6,7 @@
 
 - 연락처:010-8977-9897
 - GitHub: [som141](https://github.com/som141)
+- 포트폴리오: [프로젝트 상세 보기](portfolio/README.md)
 - 학력: 단국대학교 소프트웨어 전공 · 2023.03 입학
 
 ## 기술
@@ -26,7 +27,7 @@ Java와 Spring을 주로 사용합니다. C/C++은 자료구조·알고리즘 �
 ### DIS · Discord 음악·주식 모의투자 봇
 
 개인 프로젝트 · 2025.06~ · 개발 및 운영\
-[저장소](https://github.com/som141/dis)
+[저장소](https://github.com/som141/dis) · [상세 포트폴리오](portfolio/DIS.md)
 
 2024년 사용하던 Discord 봇들이 동작하지 않던 경험을 계기로 직접 쓸 음악 봇을 만들었습니다. 음악 검색·재생에 주식 모의투자 기능을 더했고, 현재 지인 약 30명과 사용하고 있습니다.
 
@@ -39,7 +40,7 @@ Java와 Spring을 주로 사용합니다. C/C++은 자료구조·알고리즘 �
 ### LawGround · 법령 근거 기반 기출문제 분석
 
 팀 프로젝트 · 2026.10~ · Spring 백엔드·DB 및 AI 서비스 연동\
-[저장소](https://github.com/lawground-team/LawGround) · [구현 내용](https://github.com/lawground-team/LawGround/blob/main/docs/reports/youngju-integrated-week-08.md)
+[저장소](https://github.com/lawground-team/LawGround) · [상세 포트폴리오](portfolio/LAWGROUND.md)
 
 공인중개사 기출문제의 정답 근거를 법령에서 확인하고 관련 문제를 추천하는 서비스입니다.
 
@@ -52,7 +53,7 @@ Java와 Spring을 주로 사용합니다. C/C++은 자료구조·알고리즘 �
 ### 버블리(Verbly) · 영어 일기 첨삭·복습 서비스
 
 팀 프로젝트 · 2026.01–2026.02 · 개인 라이브러리·복습 퀴즈 백엔드\
-[백엔드 저장소](https://github.com/Verbly-Official/BE)
+[백엔드 저장소](https://github.com/Verbly-Official/BE) · [상세 포트폴리오](portfolio/VERBLY.md)
 
 AI와 원어민의 영어 일기 첨삭 결과를 개인 라이브러리와 퀴즈로 복습하는 서비스입니다.
 
