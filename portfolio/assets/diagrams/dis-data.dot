@@ -1,0 +1,19 @@
+digraph G {
+  graph [rankdir=LR, bgcolor="transparent", pad="0.15", nodesep="0.3", ranksep="0.6", fontname="Noto Sans CJK KR"];
+  node [shape=box, style="filled", fillcolor="#ffffff", color="#3f4650", fontcolor="#20242a", fontname="Noto Sans CJK KR", fontsize=9.5, margin="0.14,0.09"];
+  edge [color="#6a717b", fontname="Noto Sans CJK KR", fontsize=8.5, arrowsize=0.7];
+  gw [label="Gateway"];
+  au [label="Audio Node"];
+  st [label="Stock Node"];
+  pending [label="pending interaction\nTTL 15분", shape=cylinder, fillcolor="#f3f4f5"];
+  music [label="길드 음악 상태\nqueue · lock · dedup", shape=cylinder, fillcolor="#f3f4f5"];
+  cache [label="quote · ranking\nrate-limit cache", shape=cylinder, fillcolor="#f3f4f5"];
+  account [label="account · position\nledger · snapshot\nwatchlist", shape=cylinder, fillcolor="#f4eee5"];
+  gw -> pending [label="commandId로 저장/삭제"];
+  au -> music [label="재생 상태 복원/조정"];
+  st -> cache [label="짧은 수명 조회값"];
+  st -> account [label="트랜잭션 기록"];
+  pending -> gw [label="결과 응답 위치"];
+  music -> au;
+  cache -> st;
+}

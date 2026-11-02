@@ -1,0 +1,19 @@
+digraph G {
+  graph [rankdir=LR, bgcolor="transparent", pad="0.15", nodesep="0.28", ranksep="0.5", fontname="Noto Sans CJK KR"];
+  node [shape=box, style="filled", fillcolor="#ffffff", color="#3f4650", fontcolor="#20242a", fontname="Noto Sans CJK KR", fontsize=9.2, margin="0.14,0.09"];
+  edge [color="#6a717b", fontname="Noto Sans CJK KR", fontsize=8.3, arrowsize=0.7];
+  queued [label="QUEUED"];
+  running [label="RUNNING\nPREPARE → HYDE → SEARCH\n→ RERANK → VERIFY → PERSIST", fillcolor="#f4eee5"];
+  wait [label="RETRY_WAIT"];
+  success [label="SUCCEEDED"];
+  failed [label="FAILED"];
+  cancel [label="CANCELLED"];
+  queued -> running [label="claim + lease + token++"];
+  running -> running [label="checkpoint + heartbeat"];
+  running -> wait [label="재시도 가능 오류"];
+  wait -> running [label="next_attempt_at"];
+  running -> success;
+  running -> failed [label="deadline/계약/최종 오류"];
+  queued -> cancel;
+  running -> cancel [label="늦은 저장 차단"];
+}

@@ -1,0 +1,21 @@
+digraph G {
+  graph [rankdir=LR, bgcolor="transparent", pad="0.15", nodesep="0.28", ranksep="0.58", fontname="Noto Sans CJK KR"];
+  node [shape=box, style="filled", fillcolor="#ffffff", color="#3f4650", fontcolor="#20242a", fontname="Noto Sans CJK KR", fontsize=9.5, margin="0.14,0.09"];
+  edge [color="#6a717b", fontname="Noto Sans CJK KR", fontsize=8.5, arrowsize=0.7];
+  user [label="Discord 사용자"];
+  app [label="StockCommand\nApplicationService"];
+  quote [label="Quote service\nFinnhub / cache"];
+  trade [label="TradeExecutionService\n가격 · 수량 · 잔고 검증"];
+  account [label="Account"];
+  position [label="Position"];
+  ledger [label="Trade ledger"];
+  rank [label="Snapshot / ranking"];
+  user -> app;
+  app -> quote [label="quote/list"];
+  app -> trade [label="buy/sell"];
+  trade -> account [label="현금 변경"];
+  trade -> position [label="보유량·평단 변경"];
+  trade -> ledger [label="거래 기록"];
+  account -> rank;
+  position -> rank;
+}

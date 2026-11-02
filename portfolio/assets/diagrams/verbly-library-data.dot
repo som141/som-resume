@@ -1,0 +1,18 @@
+digraph G {
+  graph [rankdir=LR, bgcolor="transparent", pad="0.15", nodesep="0.28", ranksep="0.55", fontname="Noto Sans CJK KR"];
+  node [shape=record, style="filled", fillcolor="#ffffff", color="#3f4650", fontcolor="#20242a", fontname="Noto Sans CJK KR", fontsize=9, margin="0.12,0.08"];
+  edge [color="#6a717b", fontname="Noto Sans CJK KR", fontsize=8, arrowsize=0.7];
+  member [label="{member|id}"];
+  correction [label="{correction|id|member_id|original/corrected}"];
+  post [label="{post|id|member_id}"];
+  item [label="{library_item|member_id|normalized_phrase|meaning}", fillcolor="#f4eee5"];
+  example [label="{library_example|item_id|sentence|translation}"];
+  source [label="{library_source|item_id|correction_id / post_id}"];
+  member -> correction;
+  member -> post;
+  member -> item;
+  item -> example;
+  item -> source;
+  correction -> source;
+  post -> source;
+}

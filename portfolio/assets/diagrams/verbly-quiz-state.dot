@@ -1,0 +1,20 @@
+digraph G {
+  graph [rankdir=LR, bgcolor="transparent", pad="0.15", nodesep="0.28", ranksep="0.5", fontname="Noto Sans CJK KR"];
+  node [shape=box, style="filled", fillcolor="#ffffff", color="#3f4650", fontcolor="#20242a", fontname="Noto Sans CJK KR", fontsize=9.2, margin="0.14,0.09"];
+  edge [color="#6a717b", fontname="Noto Sans CJK KR", fontsize=8.3, arrowsize=0.7];
+  ready [label="SESSION CREATED"];
+  q [label="QUESTION ACTIVE\norder 고정"];
+  hint [label="HINT USED"];
+  answered [label="ANSWERED\nattemptNo 증가"];
+  done [label="COMPLETED\n결과 집계", fillcolor="#f4eee5"];
+  retry [label="RETRY WRONG\n오답 문제만 재생성"];
+  quit [label="QUIT"];
+  ready -> q;
+  q -> hint -> q;
+  q -> answered;
+  answered -> q [label="다음 문제"];
+  answered -> done [label="마지막 문제"];
+  done -> retry [label="오답 존재"];
+  retry -> q;
+  q -> quit;
+}

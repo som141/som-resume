@@ -25,6 +25,16 @@ def export(source: Path, destination: Path) -> None:
             lines.append(f"**{eyebrow.group(1)}**")
             continue
 
+        document_label = re.fullmatch(r'<div class="document-label">(.+)</div>', line)
+        if document_label:
+            lines.append(f"**{document_label.group(1)}**")
+            continue
+
+        section_number = re.fullmatch(r'<div class="section-number">(.+)</div>', line)
+        if section_number:
+            lines.append(f"**{section_number.group(1)}**")
+            continue
+
         line = re.sub(r"(\]\([^)]+\))\{[^}]+\}", r"\1", line)
         lines.append(line)
 

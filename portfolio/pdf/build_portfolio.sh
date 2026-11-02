@@ -26,8 +26,8 @@ if grep -q '^:::' "${MARKDOWN_PATH}"; then
 fi
 
 PAGE_COUNT="$(pdfinfo "${PDF_PATH}" | awk '/^Pages:/ {print $2}')"
-if [[ "${PAGE_COUNT}" != "13" ]]; then
-  echo "Expected 13 PDF pages, got ${PAGE_COUNT}." >&2
+if [[ "${PAGE_COUNT}" != "32" ]]; then
+  echo "Expected 32 PDF pages, got ${PAGE_COUNT}." >&2
   exit 1
 fi
 

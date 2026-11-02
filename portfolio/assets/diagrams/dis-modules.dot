@@ -1,0 +1,22 @@
+digraph G {
+  graph [rankdir=TB, bgcolor="transparent", pad="0.15", nodesep="0.35", ranksep="0.45", fontname="Noto Sans CJK KR"];
+  node [shape=box, style="filled", fillcolor="#ffffff", color="#3f4650", fontcolor="#20242a", fontname="Noto Sans CJK KR", fontsize=10, margin="0.16,0.10"];
+  edge [color="#6a717b", fontname="Noto Sans CJK KR", fontsize=9, arrowsize=0.7];
+  subgraph cluster_apps { label="실행 앱"; color="#b9bdc3"; style="dashed";
+    gateway [label="gateway-app\nDiscordBotListener\nResultListener"];
+    audio [label="audio-node-app\nMusicWorkerService\nVoice lifecycle"];
+    stock [label="stock-node-app\nStockCommandApplicationService\nTradeExecutionService"];
+  }
+  subgraph cluster_modules { label="공유 모듈"; color="#b9bdc3"; style="dashed";
+    common [label="common-core\n음악 메시지 계약\nplayer · scheduler · Rabbit adapter"];
+    stockcore [label="stock-core\n주식 명령 / 결과 계약"];
+  }
+  infra [label="외부 경계\nJDA · RabbitMQ · Redis · PostgreSQL\nYouTube · Finnhub", fillcolor="#f4eee5"];
+  gateway -> common;
+  audio -> common;
+  gateway -> stockcore;
+  stock -> stockcore;
+  gateway -> infra;
+  audio -> infra;
+  stock -> infra;
+}

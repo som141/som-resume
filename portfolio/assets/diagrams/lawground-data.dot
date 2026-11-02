@@ -1,0 +1,16 @@
+digraph G {
+  graph [rankdir=LR, bgcolor="transparent", pad="0.15", nodesep="0.26", ranksep="0.55", fontname="Noto Sans CJK KR"];
+  node [shape=record, style="filled", fillcolor="#ffffff", color="#3f4650", fontcolor="#20242a", fontname="Noto Sans CJK KR", fontsize=8.8, margin="0.12,0.08"];
+  edge [color="#6a717b", fontname="Noto Sans CJK KR", fontsize=8, arrowsize=0.7];
+  member [label="{members|id|provider subject}"];
+  q [label="{questions|owner_id|revision|reference_date|visibility}"];
+  choice [label="{question_choices|question_id|choice_no|text}"];
+  run [label="{trace_runs|question_revision|status|checkpoint|versions}", fillcolor="#f4eee5"];
+  job [label="{processing_jobs|run_id|stage|lease_until|fencing_token|deadline_at}", fillcolor="#f4eee5"];
+  evidence [label="{evidence / result|law source|quote|verdict|reason_code}"];
+  member -> q [label="1:N"];
+  q -> choice [label="1:5"];
+  q -> run [label="1:N snapshot"];
+  run -> job [label="1:1"];
+  run -> evidence [label="완료 결과"];
+}
