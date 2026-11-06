@@ -24,18 +24,19 @@ Java와 Spring을 주로 사용합니다. C/C++은 자료구조·알고리즘 �
 
 ## 프로젝트
 
-### DIS · Discord 음악·주식 모의투자 봇
+### DIS · Discord 음악·주식 모의투자·메이플 포털
 
 개인 프로젝트 · 2025.06~ · 개발 및 운영\
 [저장소](https://github.com/som141/dis)
 
-2024년 사용하던 Discord 봇들이 동작하지 않던 경험을 계기로 직접 쓸 음악 봇을 만들었습니다. 음악 검색·재생에 주식 모의투자 기능을 더했고, 현재 지인 약 30명과 사용하고 있습니다.
+2024년 사용하던 Discord 봇들이 동작하지 않던 경험을 계기로 직접 쓸 음악 봇을 만들었습니다. 음악 검색·재생에 주식 모의투자와 메이플 경매장 포털을 더했습니다. 음악·모의투자 봇은 현재 지인 약 30명과 사용하고 있으며, 포털의 PostgreSQL 이전은 PR 검증을 마치고 운영 반영을 준비 중입니다.
 
 - **Discord 음성 보안 변경으로 재생이 막힌 문제에 대응했습니다.** 음성 연결 상태 로그로 실패 단계를 확인하고, JDA 업그레이드와 DAVE 암호화 세션 적용, 컨테이너 환경에 맞는 음성 라이브러리 설정으로 호환성을 보완했습니다.
 - **모놀리식 봇을 MSA 구조로 전환했습니다.** 명령 처리와 음악 재생을 역할별로 실행하고 재시작 시 상태를 복구할 수 있도록, 게이트웨이와 오디오 노드를 별도 앱으로 분리했습니다. RabbitMQ로 명령과 결과를 전달하고 Redis에 대기열·재생 상태를 저장하도록 바꿨으며, 앱별 빌드와 Docker 이미지도 분리했습니다.
 - **함께 쓰는 사용자들의 요청을 받아 주식 모의투자 게임으로 확장했습니다.** 기존 게이트웨이·메시징 구조에 Stock Node를 추가하고, PostgreSQL에 계좌·보유 종목·거래 내역을 저장하도록 구성했습니다. Discord에서 시세 조회와 매수·매도, 포트폴리오·수익률 순위를 이용할 수 있도록 연결했습니다.
+- **메이플 경매장 포털을 Discord 계정과 연결했습니다.** Spring Gateway의 Discord OAuth와 사용자별 Node 브라우저 검색을 분리하고, 캐릭터별 조건·감시·DM 발송 상태를 기존 PostgreSQL의 별도 스키마로 이전했습니다. [PR #23](https://github.com/som141/dis/pull/23)의 PostgreSQL 16 통합 테스트 93개는 통과했으며 운영 데이터 이전은 아직 검증 중입니다.
 
-사용 기술: Java · Spring Boot · JDA · LavaPlayer · RabbitMQ · Redis · PostgreSQL · Docker Compose · GitHub Actions
+사용 기술: Java · Spring Boot · Node.js · JDA · LavaPlayer · RabbitMQ · Redis · PostgreSQL · Docker Compose · GitHub Actions
 
 ### LawGround · 법령 근거 기반 기출문제 분석
 

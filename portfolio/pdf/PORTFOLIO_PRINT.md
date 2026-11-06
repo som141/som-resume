@@ -10,17 +10,17 @@ DIS, LawGround, Verbly를 사용자 흐름부터 데이터 구조, 실패 처리
 
 ::: {.cover-index}
 
-**01　DIS**  Discord 음악·주식 모의투자 봇　05–18
+**01　DIS**  Discord 음악·모의투자·메이플 포털　05–19
 
-**02　LawGround**  법령 근거 기반 기출문제 분석　19–27
+**02　LawGround**  법령 근거 기반 기출문제 분석　20–28
 
-**03　Verbly**  영어 표현 라이브러리·복습 퀴즈　28–32
+**03　Verbly**  영어 표현 라이브러리·복습 퀴즈　29–33
 
 :::
 
 ::: {.cover-meta}
 
-Java · Spring Boot · PostgreSQL · MySQL · Redis · RabbitMQ · Docker
+Java · Spring Boot · Node.js · PostgreSQL · MySQL · Redis · RabbitMQ · Docker
 
 github.com/som141　·　010-8977-9897　·　단국대학교 소프트웨어학과
 
@@ -40,7 +40,7 @@ github.com/som141　·　010-8977-9897　·　단국대학교 소프트웨어학
 
 | 프로젝트 | 성격·기간 | 내가 맡은 범위 | 현재 확인 가능한 상태 |
 | --- | --- | --- | --- |
-| DIS | 개인 프로젝트, 2025.06~ | 설계, 백엔드, 배포, 운영 | 지인 약 30명이 사용하는 음악·모의투자 봇. GitHub Actions와 Linux 서버로 배포 |
+| DIS | 개인 프로젝트, 2025.06~ | 설계, 백엔드, 배포, 운영 | 음악·모의투자 봇 운영. 메이플 포털의 PostgreSQL 이전은 PR 검증 완료, 운영 반영 대기 |
 | LawGround | 팀 프로젝트, 2026.10~ | Spring API, DB, 비동기 분석 작업, 검색·검증 연결 기반 | 로그인과 문제 라이브러리는 사용 가능. LIVE 분석은 기본 OFF이며 실제 Python 모델·공식 말뭉치 검증이 남음 |
 | Verbly | 팀 프로젝트, 2026.01–02 | 개인 표현 라이브러리, 자동 채우기, 복습 퀴즈 | 교정 결과를 학습 항목으로 저장하고 퀴즈·오답 재도전으로 이어지는 백엔드 구현 |
 
@@ -48,7 +48,7 @@ github.com/som141　·　010-8977-9897　·　단국대학교 소프트웨어학
 
 | 구분 | 기술 |
 | --- | --- |
-| 애플리케이션 | Java 21, Spring Boot, Spring MVC, Spring Data JPA, JDA, LavaPlayer |
+| 애플리케이션 | Java 21, Spring Boot, Node.js, Spring MVC, Spring Data JPA, JDA, LavaPlayer |
 | 데이터·메시징 | PostgreSQL, MySQL, Redis, RabbitMQ, pgvector |
 | 외부 연동 | Discord, YouTube, Finnhub, OAuth2, AI HTTP 계약 |
 | 실행·운영 | Docker Compose, GitHub Actions, Prometheus, Grafana, Loki, Alloy |
@@ -83,6 +83,7 @@ github.com/som141　·　010-8977-9897　·　단국대학교 소프트웨어학
 | 16 | 거래 구현 | 가격 신선도, 잔고, 보유 종목, 거래 내역을 어떻게 함께 바꾸는가 |
 | 17 | 배포·관측·테스트 | 무엇을 자동으로 확인하고 무엇을 직접 확인하는가 |
 | 18 | 설계 판단과 제한 | 분리로 얻은 점과 현재 확장 한계는 무엇인가 |
+| 19 | 메이플 마켓 포털 | Discord 인증, 브라우저 검색, DB 복원·알림은 어떻게 연결되는가 |
 
 ## 프로젝트를 읽을 때의 기준
 
@@ -100,29 +101,29 @@ DIS는 Discord와 YouTube라는 외부 서비스 위에서 동작한다. 컨테�
 
 # 목차 Ⅱ — LawGround와 Verbly
 
-## LawGround　19–27
+## LawGround　20–28
 
 | 쪽 | 내용 | 확인할 질문 |
 | ---: | --- | --- |
-| 19 | 프로젝트 정의와 현재 상태 | 실제로 사용할 수 있는 범위와 개발 기반을 어떻게 나누는가 |
-| 20 | 기능 명세와 사용자 흐름 | 문제 저장부터 분석 결과 조회까지 어떤 단계가 있는가 |
-| 21 | 시스템 아키텍처 | Spring, DB, queue, Python 계약의 책임은 무엇인가 |
-| 22 | 데이터 모델 | 문제 revision과 분석 snapshot을 왜 함께 저장하는가 |
-| 23 | 로그인·문제 라이브러리 | 사용자 소유권과 수정 충돌을 어떻게 다루는가 |
-| 24 | 비동기 분석 작업 | 오래 걸리는 작업을 어떻게 접수하고 다시 조회하는가 |
-| 25 | lease·fencing·checkpoint | 중복 worker와 재시작 뒤의 늦은 저장을 어떻게 막는가 |
-| 26 | 법령 검색과 검증 | FTS, vector, RRF, rerank, 인용 검사는 어떻게 이어지는가 |
-| 27 | 검증 범위와 남은 일 | 기반 구현과 실제 모델 품질을 어디서 구분하는가 |
+| 20 | 프로젝트 정의와 현재 상태 | 실제로 사용할 수 있는 범위와 개발 기반을 어떻게 나누는가 |
+| 21 | 기능 명세와 사용자 흐름 | 문제 저장부터 분석 결과 조회까지 어떤 단계가 있는가 |
+| 22 | 시스템 아키텍처 | Spring, DB, queue, Python 계약의 책임은 무엇인가 |
+| 23 | 데이터 모델 | 문제 revision과 분석 snapshot을 왜 함께 저장하는가 |
+| 24 | 로그인·문제 라이브러리 | 사용자 소유권과 수정 충돌을 어떻게 다루는가 |
+| 25 | 비동기 분석 작업 | 오래 걸리는 작업을 어떻게 접수하고 다시 조회하는가 |
+| 26 | lease·fencing·checkpoint | 중복 worker와 재시작 뒤의 늦은 저장을 어떻게 막는가 |
+| 27 | 법령 검색과 검증 | FTS, vector, RRF, rerank, 인용 검사는 어떻게 이어지는가 |
+| 28 | 검증 범위와 남은 일 | 기반 구현과 실제 모델 품질을 어디서 구분하는가 |
 
-## Verbly　28–32
+## Verbly　29–33
 
 | 쪽 | 내용 | 확인할 질문 |
 | ---: | --- | --- |
-| 28 | 프로젝트와 담당 범위 | 전체 서비스 중 어떤 기능을 맡았는가 |
-| 29 | 라이브러리 명세·데이터 | 표현, 예문, 교정 출처를 어떻게 저장하는가 |
-| 30 | 자동 채우기 구현 | 같은 표현의 중복과 동시 저장을 어떻게 처리하는가 |
-| 31 | 복습 퀴즈 상태 | 순서, 힌트, 답안, 완료 상태를 어떻게 지키는가 |
-| 32 | 오답 재도전·마무리 | 오답만 다시 출제할 때 FK와 세션 상태를 어떻게 정리하는가 |
+| 29 | 프로젝트와 담당 범위 | 전체 서비스 중 어떤 기능을 맡았는가 |
+| 30 | 라이브러리 명세·데이터 | 표현, 예문, 교정 출처를 어떻게 저장하는가 |
+| 31 | 자동 채우기 구현 | 같은 표현의 중복과 동시 저장을 어떻게 처리하는가 |
+| 32 | 복습 퀴즈 상태 | 순서, 힌트, 답안, 완료 상태를 어떻게 지키는가 |
+| 33 | 오답 재도전·마무리 | 오답만 다시 출제할 때 FK와 세션 상태를 어떻게 정리하는가 |
 
 <div class="page-no">04</div>
 
@@ -134,11 +135,11 @@ DIS는 Discord와 YouTube라는 외부 서비스 위에서 동작한다. 컨테�
 
 # DIS
 
-## Discord 음악·주식 모의투자 봇
+## Discord 음악·모의투자·메이플 포털
 
 2024년 친구들과 쓰던 Discord 음악 봇들이 제대로 동작하지 않는 일을 겪었다. 필요한 기능을 직접 관리할 수 있는 봇을 만들기로 했고, 2025년 6월부터 개발과 운영을 이어 왔다. 현재 지인 약 30명이 같은 Discord 서버에서 사용한다.
 
-처음 범위는 음성 채널의 음악 재생이었다. 운영하면서 음성 보안 방식 변경, 외부 음원 인증 실패, 재시작 뒤 메모리 상태 유실을 겪었다. 명령 수신과 재생 책임을 분리한 뒤에는 같은 구조에 주식 모의투자 worker를 추가했다.
+처음 범위는 음성 채널의 음악 재생이었다. 운영하면서 음성 보안 방식 변경, 외부 음원 인증 실패, 재시작 뒤 메모리 상태 유실을 겪었다. 명령 수신과 재생 책임을 분리한 뒤 주식 모의투자 worker와 사용자별 메이플 경매장 포털을 추가했다.
 
 ## 현재 제공 범위
 
@@ -149,6 +150,7 @@ DIS는 Discord와 YouTube라는 외부 서비스 위에서 동작한다. 컨테�
 | 거래 | Finnhub 시세 기반 정수 수량 매수·매도, 1~50배 레버리지, 시세 갱신 시 청산 검사 |
 | 커뮤니티 | 일간·주간·월간 수익률 순위, 공개 거래 메시지 |
 | 운영 | Docker Compose, main push 자동 배포, health·metrics·집중 로그 조회 |
+| 메이플 포털 | Discord 계정 연결, 캐릭터별 장비 검색·비교·감시, 개인 DM 알림. PostgreSQL 이전은 PR CI 통과, 운영 반영 대기 |
 
 ## 설계에서 계속 확인한 조건
 
@@ -234,7 +236,7 @@ DIS는 Discord와 YouTube라는 외부 서비스 위에서 동작한다. 컨테�
 
 <div class="eyebrow">DIS · SYSTEM ARCHITECTURE</div>
 
-# 세 실행 앱과 외부 시스템
+# 음악·주식 실행 앱과 외부 시스템
 
 ![DIS 시스템 아키텍처](assets/diagrams/dis-system.svg){.diagram .diagram-large}
 
@@ -251,6 +253,8 @@ Gateway와 Audio Node는 같은 봇 계정으로 JDA에 연결하지만 목적�
 
 명령에는 `commandId`, `guildId`, 요청 사용자와 응답 대상 Gateway가 포함된다. 결과는 해당 Gateway의 결과 큐로 돌아간다.
 
+메이플 포털의 사용자별 브라우저와 별도 데이터 스키마는 19쪽에서 설명한다.
+
 <div class="page-no">08</div>
 
 :::
@@ -259,7 +263,7 @@ Gateway와 Audio Node는 같은 봇 계정으로 JDA에 연결하지만 목적�
 
 <div class="eyebrow">DIS · MODULE BOUNDARIES</div>
 
-# 실행 앱과 공유 모듈
+# 음악·주식 앱과 공유 모듈
 
 ![DIS 모듈 구조](assets/diagrams/dis-modules.svg){.diagram .diagram-medium}
 
@@ -620,6 +624,34 @@ DIS는 기능을 나눈 것으로 끝난 프로젝트가 아니다. 외부 서�
 
 :::
 
+::: {.page}
+
+<div class="eyebrow">DIS · MAPLE MARKET PORTAL</div>
+
+# Discord 계정에서 경매장 감시까지
+
+기존 DIS Gateway에 `/maple connect`를 붙였다. 사용자가 Discord OAuth를 완료하면 Spring Gateway가 서명된 연결 요청과 Discord 신원을 확인하고 포털 세션을 발급한다. 포털은 사용자마다 별도 Chromium 프로필로 공식 넥슨 로그인 화면을 열며, 로그인만으로 경매장 검색을 시작하지 않는다.
+
+## 사용자 흐름과 책임
+
+| 단계 | 담당 | 처리 |
+| --- | --- | --- |
+| 계정 연결 | Spring Gateway | 5분 연결 티켓, Discord `identify`, HttpOnly 세션 쿠키 발급 |
+| 아이템 조회 | Node 포털 | 캐릭터 선택, 예산·잠재 조건 검증, 경매장 페이지 수집과 장비 교체 비교 |
+| 감시·알림 | Node 포털 → Spring Gateway | 새 매물 ID 중복 확인, 발송함 기록, 30초 간격 개인 DM 전달 |
+
+## 기존 PostgreSQL로 상태 이전
+
+사용자별 JSON 파일에 있던 캐릭터 작업 공간, 검색 조건, 감시 상태와 미전송 알림을 기존 PostgreSQL 인스턴스의 독립 `maple` 스키마로 옮기는 코드를 만들었다. Flyway와 일회성 이전기는 기존 JSON을 읽기만 하고, 계정·작업·매물·알림의 유일 키를 DB에서 검사한다. 단일 포털 프로세스는 advisory lock으로 보호한다. 브라우저 로그인 프로필은 사용자별 Docker 볼륨에 남긴다.
+
+## 검증 범위와 현재 제한
+
+PR [#23](https://github.com/som141/dis/pull/23)의 PostgreSQL 16 CI에서 역할 생성·Flyway 마이그레이션·JSON 이전 및 복원·기존 포털 테스트 **93개가 모두 통과**했다. 운영 서버의 실제 데이터 이전과 두 계정의 실사용 검증은 아직 남아 있다. 현재 기본 사용자 상한은 2명이고 포털 복제본은 동시에 실행하지 않는다. 매물 상세 원본은 프로세스 메모리에 있어 재시작 후 다시 조회해야 한다.
+
+<div class="page-no">19</div>
+
+:::
+
 ::: {.page .section-opener}
 
 <div class="section-number">02</div>
@@ -643,7 +675,7 @@ DIS는 기능을 나눈 것으로 끝난 프로젝트가 아니다. 외부 서�
 
 **저장소** github.com/lawground-team/LawGround　　**담당** Spring 백엔드·DB·분석 작업·검색 연결
 
-<div class="page-no">19</div>
+<div class="page-no">20</div>
 
 :::
 
@@ -676,7 +708,7 @@ DIS는 기능을 나눈 것으로 끝난 프로젝트가 아니다. 외부 서�
 6. API는 긴 작업이 끝날 때까지 연결을 잡지 않고 run/job 식별자를 반환한다. 화면은 상태를 조회한다.
 7. 완료 결과는 선지별 판정과 법령 인용을 제공해야 한다. 현재 기본 화면은 실제 모델 품질이 준비되지 않아 새 분석을 켜지 않는다.
 
-<div class="page-no">20</div>
+<div class="page-no">21</div>
 
 :::
 
@@ -704,7 +736,7 @@ DB commit 후 queue 발행이 실패하거나 같은 메시지가 다시 올 수
 
 현재 필수 범위에 outbox 전체 구현을 넣지는 않았다. 발행 실패·재발행 경로와 중복 전달은 job row와 claim 조건으로 다루되, 정확히 한 번 전달을 보장한다고 쓰지 않는다.
 
-<div class="page-no">21</div>
+<div class="page-no">22</div>
 
 :::
 
@@ -739,7 +771,7 @@ DB commit 후 queue 발행이 실패하거나 같은 메시지가 다시 올 수
 
 검색 대상 법령 version은 `effective_from <= referenceDate`이고 `effective_to`가 없거나 기준일보다 뒤인 행만 고른다. 최신 법령만 검색하면 과거 기출의 판단 근거가 달라질 수 있기 때문에 문제 입력 시 기준일을 필수로 받는다.
 
-<div class="page-no">22</div>
+<div class="page-no">23</div>
 
 :::
 
@@ -782,7 +814,7 @@ private void lockOwned(UUID id, UUID owner, long expected) {
 
 삭제 시 문제 row만 숨기고 작업을 그대로 두면 worker가 이미 삭제된 입력의 결과를 나중에 저장할 수 있다. 문제 soft delete와 함께 `QUEUED/RUNNING` run을 취소하고 processing job도 terminal 상태로 바꾼다.
 
-<div class="page-no">23</div>
+<div class="page-no">24</div>
 
 :::
 
@@ -813,7 +845,7 @@ private void lockOwned(UUID id, UUID owner, long expected) {
 
 checkpoint는 단순 진행률 표시가 아니다. SEARCH가 끝난 뒤 프로세스가 재시작되면 저장된 검색 결과와 version을 다시 검사하고 VERIFY부터 이어갈 수 있게 한다.
 
-<div class="page-no">24</div>
+<div class="page-no">25</div>
 
 :::
 
@@ -862,7 +894,7 @@ WHERE id=?;
 
 통합 테스트에서 유효한 lease 동안 두 번째 claim이 거절되는지, lease 만료 뒤 token이 증가하는지, 이전 token의 complete가 실패하는지, 삭제·취소·deadline·version mismatch에서 실행되지 않는지 확인한다.
 
-<div class="page-no">25</div>
+<div class="page-no">26</div>
 
 :::
 
@@ -897,7 +929,7 @@ HyDE 문장은 검색 보조 입력일 뿐 법령 근거가 아니다. 원문 �
 
 검색 hit가 있다는 사실은 정답 판정이 아니다. verifier가 꺼져 있으면 검색 결과를 답으로 포장하지 않고 `VERIFIER_NOT_CONFIGURED`로 실패시킨다. 실제 정확도는 공식 corpus와 검수된 golden set으로 별도 측정해야 한다.
 
-<div class="page-no">26</div>
+<div class="page-no">27</div>
 
 :::
 
@@ -927,7 +959,7 @@ HyDE 문장은 검색 보조 입력일 뿐 법령 근거가 아니다. 원문 �
 
 법령 검색 SQL과 job 복구 코드가 동작해도 공식 데이터와 실제 모델 검증 전에는 법령 판단의 정확도를 주장할 수 없다. 현재 결과는 사용자 문제 관리와 분석 백엔드 기반이 구현된 단계다.
 
-<div class="page-no">27</div>
+<div class="page-no">28</div>
 
 :::
 
@@ -963,7 +995,7 @@ Verbly는 영어 일기를 AI와 원어민에게 첨삭받고, 고친 표현을 
 
 **저장소** github.com/Verbly-Team/Verbly-BE　　**담당** Library·Quiz Review 백엔드
 
-<div class="page-no">28</div>
+<div class="page-no">29</div>
 
 :::
 
@@ -1001,7 +1033,7 @@ Verbly는 영어 일기를 AI와 원어민에게 첨삭받고, 고친 표현을 
 
 모든 조회·변경은 인증 사용자의 ID와 함께 검사한다. correction 자동 채우기도 먼저 correction의 소유자를 확인한 뒤 해당 correction이 연결된 post ID만 source에 기록한다.
 
-<div class="page-no">29</div>
+<div class="page-no">30</div>
 
 :::
 
@@ -1048,7 +1080,7 @@ private LibraryItem upsertItem(
 
 항목, source, example의 생성 수를 결과로 돌려 자동 채우기가 실제로 무엇을 변경했는지 호출자가 확인할 수 있게 했다.
 
-<div class="page-no">30</div>
+<div class="page-no">31</div>
 
 :::
 
@@ -1088,7 +1120,7 @@ answerRepository.save(ReviewAnswer.of(question, nextAttempt,
 
 session, question, task가 모두 같은 사용자와 session에 속하는지 validator가 확인한다. client가 다음 문제 ID를 임의로 보내도 현재 `taskOrder`가 아니면 거절한다. 마지막 문제를 제출할 때 session과 모든 task를 한 transaction에서 `COMPLETED`로 바꾼다.
 
-<div class="page-no">31</div>
+<div class="page-no">32</div>
 
 :::
 
@@ -1136,6 +1168,6 @@ answer가 question을 참조하므로 삭제 순서는 answer → flush → ques
 
 **윤영주**　github.com/som141　·　010-8977-9897
 
-<div class="page-no">32</div>
+<div class="page-no">33</div>
 
 :::
