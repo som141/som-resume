@@ -51,6 +51,28 @@ async function main() {
     const page = await browser.newPage();
     await page.goto(`http://127.0.0.1:${port}/${path.basename(htmlPath)}`, { waitUntil: "load" });
     await page.emulateMedia({ media: "print" });
+    await page.evaluate(() => document.fonts.ready);
+    const layout = await page.evaluate(() => {
+      const brokenImages = [...document.images].filter(img => !img.complete || !img.naturalWidth).map(img => img.getAttribute("src"));
+      const overflow = [...document.querySelectorAll(".page")].flatMap((sheet, index) => {
+        const box = sheet.getBoundingClientRect();
+        const style = getComputedStyle(sheet);
+        const bottom = box.bottom - parseFloat(style.paddingBottom);
+        const right = box.right - parseFloat(style.paddingRight);
+        const elements = [...sheet.querySelectorAll("h1,h2,h3,p,table,pre,ul,ol,figure,img")];
+        const failures = elements.filter(el => {
+          if (el.closest(".cover-meta")) return false; // Cover footer is intentionally positioned in the bottom margin.
+          const rect = el.getBoundingClientRect();
+          return rect.bottom > bottom + 1 || rect.right > right + 1;
+        });
+        return failures.length ? [{ page: index + 1, elements: failures.map(el => el.textContent.slice(0, 70) || el.getAttribute("src")) }] : [];
+      });
+      return { pages: document.querySelectorAll(".page").length, brokenImages, overflow };
+    });
+    if (layout.brokenImages.length || layout.overflow.length) {
+      throw new Error(`Print layout validation failed: ${JSON.stringify(layout)}`);
+    }
+    console.log(`Validated ${layout.pages} pages: no missing images or content overflow.`);
     await page.pdf({
       path: pdfPath,
       format: "A4",
