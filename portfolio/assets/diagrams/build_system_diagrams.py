@@ -129,9 +129,20 @@ def dis() -> str:
         arrow(680, 195, 740, 277, "주식 ↔ 결과", both=True),
         arrow(945, 87, 990, 87),
         arrow(945, 277, 990, 277),
-        band(245, 385, 700, "Redis", [("Gateway", "pending 응답"), ("Audio", "음악 상태 · lock"), ("Stock", "시세 · 랭킹 캐시")]),
+        band(245, 515, 700, "Redis", [("Gateway", "pending 응답"), ("Audio", "음악 상태 · lock"), ("Stock", "시세 · 랭킹 캐시")]),
     ]
-    return base("".join(body))
+    body.extend([
+        card(25, 360, 190, 105, "Web 사용자", "HTTPS · edge", "user", PURPLE),
+        card(285, 360, 240, 105, "Maple Portal", "Node · 검색 · 계산\n사용자별 Chromium", "web", ORANGE),
+        card(600, 360, 235, 105, "Nexon", "로그인 · 경매장\n캐릭터 API", "web", TEAL),
+        card(900, 360, 275, 105, "PostgreSQL", "maple 스키마\n계정 · 작업 · 발송함", "database", GREEN),
+        arrow(215, 412, 285, 412),
+        arrow(350, 230, 350, 360, "세션 / 발송함 HTTP", both=True),
+        arrow(525, 412, 600, 412, both=True),
+        '<path d="M405 465 V488 H1035 V465" fill="none" stroke="#8a9299" stroke-width="2.2" marker-start="url(#arrowBack)" marker-end="url(#arrow)"/>',
+        '<rect x="630" y="477" width="190" height="21" fill="white"/><text x="725" y="492" class="label">포털 ↔ maple DB</text>',
+    ])
+    return base("".join(body), height=620)
 
 
 def lawground() -> str:
@@ -177,3 +188,14 @@ for name, content in {
     "verbly-system.svg": verbly(),
 }.items():
     (ROOT / name).write_text(content, encoding="utf-8")
+
+
+# Outbound release delivery is separate from application observability.
+(ROOT / "dis-ops.svg").write_text(base("".join([
+    card(25,35,245,105,"main / Actions","Gradle · Node tests\nJAR · images", "worker",ORANGE),
+    card(330,35,235,105,"GitHub Release","deploy-SHA\nchecksums", "queue",BROWN),
+    card(630,35,260,105,"Server pull timer","기본 10분 · 검증\n백업 · migration", "worker",TEAL),
+    card(950,35,225,105,"Compose","Gateway · workers\nMaple · data", "web",GREEN),
+    arrow(270,87,330,87), arrow(630,87,565,87,"다운로드"), arrow(890,87,950,87),
+    band(120,210,960,"관측",[("Actuator / Prometheus","Spring health · metrics"),("Alloy / Loki","Docker logs"),("Grafana","지표 · 로그 조회")]),
+]),height=330),encoding="utf-8")

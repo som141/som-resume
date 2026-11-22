@@ -36,6 +36,8 @@ Java와 Spring을 주로 사용합니다. C/C++은 자료구조·알고리즘 �
 - **함께 쓰는 사용자들의 요청을 받아 주식 모의투자 게임으로 확장했습니다.** 기존 게이트웨이·메시징 구조에 Stock Node를 추가하고, PostgreSQL에 계좌·보유 종목·거래 내역을 저장하도록 구성했습니다. Discord에서 시세 조회와 매수·매도, 포트폴리오·수익률 순위를 이용할 수 있도록 연결했습니다.
 - **메이플 경매장 포털을 Discord 계정과 연결했습니다.** Spring Gateway의 Discord OAuth와 사용자별 Node 브라우저 검색을 분리하고, 캐릭터별 조건·감시·DM 발송 상태를 기존 PostgreSQL의 별도 스키마로 이전했습니다. 운영 JSON 백업과 복원 연습 후 연결 계정 2개·작업 3개를 이전하고 서비스 health를 확인했습니다. 감시는 가성비 상위 10위 순위 변동만 본인에게 알립니다. [PR #23](https://github.com/som141/dis/pull/23), [PR #24](https://github.com/som141/dis/pull/24).
 
+- **장비 교체 비교의 기준을 명확히 했습니다.** API 최종 스탯에 선택한 반지·펜던트 슬롯과 일반·럭키 세트 변화량을 적용하고, 계산 불가능한 조건은 숫자를 추정하는 대신 사유를 표시했습니다. [PR #28](https://github.com/som141/dis/pull/28).
+
 사용 기술: Java · Spring Boot · Node.js · JDA · LavaPlayer · RabbitMQ · Redis · PostgreSQL · Docker Compose · GitHub Actions
 
 ### LawGround · 법령 근거 기반 기출문제 분석

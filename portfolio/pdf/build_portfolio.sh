@@ -8,6 +8,7 @@ MARKDOWN_PATH="${PORTFOLIO_DIR}/PORTFOLIO.md"
 HTML_PATH="${PORTFOLIO_DIR}/portfolio.html"
 PDF_PATH="${PORTFOLIO_DIR}/Yoon_Youngju_Backend_Portfolio.pdf"
 
+python3 "${PORTFOLIO_DIR}/assets/diagrams/build_system_diagrams.py"
 python3 "${SCRIPT_DIR}/export_markdown.py" "${PRINT_SOURCE}" "${MARKDOWN_PATH}"
 
 pandoc "${PRINT_SOURCE}" \
@@ -26,8 +27,9 @@ if grep -q '^:::' "${MARKDOWN_PATH}"; then
 fi
 
 PAGE_COUNT="$(pdfinfo "${PDF_PATH}" | awk '/^Pages:/ {print $2}')"
-if [[ "${PAGE_COUNT}" != "33" ]]; then
-  echo "Expected 33 PDF pages, got ${PAGE_COUNT}." >&2
+EXPECTED_PAGES="$(grep -c '^::: {.page' "${PRINT_SOURCE}")"
+if [[ "${PAGE_COUNT}" != "${EXPECTED_PAGES}" ]]; then
+  echo "Expected ${EXPECTED_PAGES} PDF pages, got ${PAGE_COUNT}." >&2
   exit 1
 fi
 
